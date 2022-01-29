@@ -4,11 +4,12 @@ from enum import Enum
 from datetime import datetime
 from threading import Thread
 
+
 with open("secrets.json") as secrets_file:
     secrets = json.load(secrets_file)
 
 host = secrets['host']
-organisation_id = secrets['organization_id']
+organization_id = secrets['organization_id']
 key = secrets['key']
 secret = secrets['secret']
 rigID = secrets['rigID']
@@ -24,7 +25,7 @@ class PowerStatus(Enum):
 
 
 power_status = PowerStatus.HIGH
-NiceHash = nicehash.private_api(host, organisation_id, key, secret)
+NiceHash = nicehash.private_api(host, organization_id, key, secret)
 mining = False
 override = False
 stop = False
