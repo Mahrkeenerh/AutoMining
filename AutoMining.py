@@ -151,11 +151,8 @@ def Stop():
 
 def Reset():
 
-    sleep(1)
     Start()
-    sleep(1)
     SetPowerHigh()
-    sleep(1)
     Stop()
 
 
