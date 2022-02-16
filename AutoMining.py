@@ -100,7 +100,7 @@ def SetPowerLow():
     global power_status
     power_status = PowerStatus.LOW
 
-    return subprocess.call(["nvidia-smi", "-pl", "80"])
+    return subprocess.call(["nvidia-smi", "-pl", "75"])
 
 
 def SetPowerMedium():
@@ -152,7 +152,6 @@ def Stop():
 def Reset():
 
     Start()
-    SetPowerHigh()
     Stop()
 
 
@@ -177,7 +176,7 @@ def IsNight():
 
     hour = datetime.now().hour
 
-    if hour >= 22 or hour <= 10:
+    if hour >= 22 or hour < 10:
         return True
     
     return False
@@ -214,7 +213,6 @@ def Loop():
         if isInGame and mining:
             print(datetime.now(), end=" ")
             print("GAME MODE -> HIGH, STOP MINING")
-            SetPowerHigh()
             Stop()
         
         if not isInGame and not mining:
