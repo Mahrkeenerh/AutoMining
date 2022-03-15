@@ -30,6 +30,8 @@ mining = False
 override = False
 stop = False
 
+is_in_game = [False] * 10
+
 
 # POWER IDs
 # https://github.com/nicehash/NiceHashQuickMiner/blob/main/optimize/data_006.json
@@ -100,7 +102,7 @@ def SetPowerLow():
     global power_status
     power_status = PowerStatus.LOW
 
-    return subprocess.call(["nvidia-smi", "-pl", "75"])
+    return subprocess.call(["nvidia-smi", "-pl", "80"])
 
 
 def SetPowerMedium():
@@ -155,6 +157,15 @@ def Reset():
     Stop()
 
 
+def AddGame(state):
+
+    global is_in_game
+
+    del is_in_game[0]
+
+    is_in_game.append(state)
+
+
 def IsInGame():
 
     try:
@@ -165,9 +176,10 @@ def IsInGame():
 
     if response['response']['players']:
         if 'gameid' in response['response']['players'][0]:
-            return True
+            AddGame(True)
 
-        return False
+        AddGame(False)
+        return any(is_in_game)
 
     return response
 
@@ -276,6 +288,7 @@ def CheckInput():
 
 
 if __name__ == '__main__':
+    sleep(30)
     Start()
 
     Thread(target=Loop).start()
