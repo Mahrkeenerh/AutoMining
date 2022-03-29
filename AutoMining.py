@@ -176,7 +176,8 @@ def IsInGame():
 
     if response['response']['players']:
         if 'gameid' in response['response']['players'][0]:
-            AddGame(True)
+            if response['response']['players'][0]['gameextrainfo'] != "Blender":
+                AddGame(True)
 
         AddGame(False)
         return any(is_in_game)
