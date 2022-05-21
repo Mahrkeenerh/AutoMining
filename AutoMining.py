@@ -51,6 +51,15 @@ def WaitNH(func, *args):
     return response
 
 
+def GetBalance():
+
+    response = WaitNH(NiceHash.get_balance_for_currency, 'BTC')
+
+    print(datetime.now(), end=" ")
+    print(response)
+    print(response["available"])
+
+
 def NHSetPowerLow():
 
     global power_status
