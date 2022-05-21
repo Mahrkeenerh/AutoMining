@@ -289,21 +289,25 @@ def CheckInput():
 
 
 if __name__ == '__main__':
-    sleep(30)
-    Start()
+    try:
+        sleep(30)
+        Start()
 
-    Thread(target=Loop).start()
+        Thread(target=Loop).start()
 
-    print("MINING\n")
-    print("PRESS ^C TO STOP")
+        print("MINING\n")
+        print("PRESS ^C TO STOP")
 
-    CheckInput()
+        CheckInput()
 
-    print()
-    print(traceback.format_exc())
-    print("\nSTOPPING, PLEASE WAIT")
+        print()
+        print(traceback.format_exc())
+        print("\nSTOPPING, PLEASE WAIT")
 
-    Reset()
+        Reset()
 
-    print("PRESS ENTER TO CLOSE")
-    input()
+        print("PRESS ENTER TO CLOSE")
+        input()
+    except:
+        with open(".log", "a") as out:
+            print(traceback.format_exc(), file=out)
